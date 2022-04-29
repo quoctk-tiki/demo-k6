@@ -35,7 +35,7 @@ Use cases:
       is `duration`.
     - **constant-arrival-rate**: A fixed number of iterations are executed in a specified period of time. The required
       params are `duration, rate & preAllocatedVUs`. Note that, `rate=X & timeUnit=Y` means X iterations per Y time. For
-      example, rate = 90 & timeUnit = '1m' means 90 iterations per one minute.
+      example, rate = 90 & timeUnit = '1m' means 90 iterations per one minute (= 1.5 Request Per Second).
     - Other executors you can find here: [K6 Scenarios](https://k6.io/docs/using-k6/scenarios)
 
 - What is **gracefulStop** in each scenario?. This option is available for all executors except `externally-controlled`
