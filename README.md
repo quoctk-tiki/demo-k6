@@ -38,11 +38,11 @@ Use cases:
       example, rate = 90 & timeUnit = '1m' means 90 iterations per one minute.
     - Other executors you can find here: [K6 Scenarios](https://k6.io/docs/using-k6/scenarios)
 
-- How about **gracefulStop** in scenarios?. This option is available for all executors except `externally-controlled`
+- What is **gracefulStop** in each scenario?. This option is available for all executors except `externally-controlled`
   and allows the user to specify a duration to wait before forcefully interrupting them. The default value of this
   property is 30s.
 
-- To understand the **arrival rate** word clearer in closed model (constant-vus executor) and opened model (
+- To understand the **arrival-rate** clearer in closed model (constant-vus executor) and opened model (
   constant-arrival-rate or ramping-arrival-rate executors), please
   see [this document](https://k6.io/docs/using-k6/scenarios/arrival-rate/).
 
