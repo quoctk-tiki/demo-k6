@@ -45,6 +45,9 @@ Use cases:
   constant-arrival-rate or ramping-arrival-rate executors), please
   see [this document](https://k6.io/docs/using-k6/scenarios/arrival-rate/).
 
+### 4. Results
 
+![Media_1](./media/1.png)
+![Media_2](./media/2.png)
 
 

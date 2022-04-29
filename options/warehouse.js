@@ -1,5 +1,10 @@
 export default {
     discardResponseBodies: false,
+    thresholds: {
+        http_req_failed: ['rate<0.01'],
+        http_req_duration: ['p(90)<700', 'p(95)<900', 'p(99)<1200', 'max<1500'],
+        'rate_status_ok': ['rate>=0.99'],
+    },
     scenarios: {
         get_warehouse: {
             executor: 'per-vu-iterations',
@@ -8,10 +13,8 @@ export default {
             env: {
                 APOLLO_API: 'http://127.0.0.1:3000/api/v1/warehouses/1',
             },
-            tags: {
-                scenario_name_tag: 'get_warehouse',
-            },
-            vus: 2,
+            tags: {},
+            vus: 100,
             iterations: 10,
             maxDuration: '10s',
             startTime: '0s',
@@ -23,10 +26,8 @@ export default {
             env: {
                 APOLLO_API: 'http://127.0.0.1:3000/api/v1/warehouses?next=0&limit=100',
             },
-            tags: {
-                scenario_name_tag: 'list_warehouse',
-            },
-            vus: 2,
+            tags: {},
+            vus: 100,
             iterations: 10,
             maxDuration: '10s',
             startTime: '0s',
@@ -46,9 +47,7 @@ export default {
                     "erp_id": 11
                 }`,
             },
-            tags: {
-                scenario_name_tag: 'create_warehouse',
-            },
+            tags: {},
             vus: 2,
             iterations: 10,
             maxDuration: '10s',
