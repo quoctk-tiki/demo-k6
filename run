@@ -1,3 +1,3 @@
 #!/bin/sh
-k6 run ./apis/warehouse.js &
-k6 run ./apis/location.js
+k6 run --address "localhost:6500" ./apis/warehouse.js &
+k6 run --address "localhost:6501" ./apis/location.js

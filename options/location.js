@@ -1,8 +1,9 @@
 export default {
     discardResponseBodies: false,
+    httpDebug: null, // 'full', 'false' or null
     thresholds: {
         http_req_failed: ['rate<0.01'],
-        http_req_duration: ['p(90)<12', 'p(95)<18', 'p(99)<30', 'max<200'],
+        http_req_duration: ['p(90)<12', 'p(95)<20', 'p(99)<40', 'max<500'],
         'rate_status_ok': ['rate>=0.99'],
     },
     scenarios: {
