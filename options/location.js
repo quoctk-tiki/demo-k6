@@ -1,19 +1,29 @@
 export default {
     discardResponseBodies: false,
+    thresholds: {
+        http_req_failed: ['rate<0.01'],
+        http_req_duration: ['p(90)<12', 'p(95)<18', 'p(99)<30', 'max<200'],
+        'rate_status_ok': ['rate>=0.99'],
+    },
     scenarios: {
         get_location: {
-            executor: 'per-vu-iterations',
+            executor: 'ramping-arrival-rate',
             gracefulStop: '10s',
             exec: 'GetLocation',
             env: {
                 APOLLO_API: 'http://127.0.0.1:3000/api/v1/locations/1',
             },
-            tags: {
-                scenario_name_tag: 'get_location',
-            },
-            vus: 1,
-            iterations: 10,
-            maxDuration: '10s',
+            tags: {},
+            preAllocatedVUs: 2,
+            maxVUs: 10,
+            startRate: 2,
+            timeUnit: '1s',
+            stages: [
+                {target: 5, duration: '2s'},   // linearly ramp-up to starting 5 iterations per "timeUnit" over 2s
+                {target: 10, duration: '4s'}, // linearly ramp-up to starting 10 iterations per "timeUnit" over 4s
+                {target: 10, duration: '4s'}, // continue starting 10 iterations per "timeUnit" over 4s
+                {target: 4, duration: '5s'},   // linearly ramp-down to starting 4 iterations per "timeUnit" over 5s
+            ],
         },
     },
 };

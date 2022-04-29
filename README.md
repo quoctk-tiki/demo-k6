@@ -24,17 +24,18 @@ Use cases:
 ### 3. Notes
 
 - There are many executors, please choose what you want and put them into your scenarios with some required attributes:
-    - **shared-iterations**: A fixed amount of iterations is "shared" between a number of VUs. Note that, don't forget
-      to set up `iterations & maxDuration`.
+    - **shared-iterations**: A fixed amount of iterations is "shared" between a number of VUs. If you use this, please
+      set up `vus, iterations & maxDuration`.
     - **per-vu-iterations**: Each VU executes an exact number of iterations. If you use this, please set
-      up `iterations & maxDuration`.
+      up `vus, iterations & maxDuration`.
     - **constant-vus**: A fixed number of VUs execute as many iterations as possible for a specified amount of time. If
-      you use this, please set up `duration` without `iterations`. Note that, `(iteration) duration` is the time from
-      start to finish of the VU's `exec` function.
-    - **externally-controlled**: Control and scale execution at runtime via k6's REST API or the CLI.
-    - **constant-arrival-rate**: A fixed number of iterations are executed in a specified period of time. Please use
-      this with `rate=X & timeUnit=Y`. This means X iterations per Y time, e.g, rate = 90 & timeUnit = '1m', 90
-      iterations per one minute.
+      you use this, please set up `duration`. Note that, `(iteration) duration` is the time from start to finish of the
+      VU's `exec` function.
+    - **externally-controlled**: Control and scale execution at runtime via k6's REST API or the CLI. The required param
+      is `duration`.
+    - **constant-arrival-rate**: A fixed number of iterations are executed in a specified period of time. The required
+      params are `duration, rate & preAllocatedVUs`. Note that, `rate=X & timeUnit=Y` means X iterations per Y time. For
+      example, rate = 90 & timeUnit = '1m' means 90 iterations per one minute.
     - Other executors you can find here: [K6 Scenarios](https://k6.io/docs/using-k6/scenarios)
 
 - How about **gracefulStop** in scenarios?. This option is available for all executors except `externally-controlled`

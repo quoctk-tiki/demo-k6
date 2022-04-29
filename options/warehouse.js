@@ -2,38 +2,48 @@ export default {
     discardResponseBodies: false,
     thresholds: {
         http_req_failed: ['rate<0.01'],
-        http_req_duration: ['p(90)<700', 'p(95)<900', 'p(99)<1200', 'max<1500'],
+        http_req_duration: ['p(90)<12', 'p(95)<18', 'p(99)<30', 'max<200'],
         'rate_status_ok': ['rate>=0.99'],
     },
     scenarios: {
         get_warehouse: {
-            executor: 'per-vu-iterations',
+            executor: 'ramping-arrival-rate',
             gracefulStop: '10s',
             exec: 'GetWarehouse',
             env: {
                 APOLLO_API: 'http://127.0.0.1:3000/api/v1/warehouses/1',
             },
-            tags: {},
-            vus: 100,
-            iterations: 10,
-            maxDuration: '10s',
-            startTime: '0s',
+            preAllocatedVUs: 2,
+            maxVUs: 10,
+            startRate: 2,
+            timeUnit: '1s',
+            stages: [
+                {target: 5, duration: '2s'},   // linearly ramp-up to starting 5 iterations per "timeUnit" over 2s
+                {target: 10, duration: '4s'}, // linearly ramp-up to starting 10 iterations per "timeUnit" over 4s
+                {target: 10, duration: '4s'}, // continue starting 10 iterations per "timeUnit" over 4s
+                {target: 4, duration: '5s'},   // linearly ramp-down to starting 4 iterations per "timeUnit" over 5s
+            ],
         },
         list_warehouse: {
-            executor: 'per-vu-iterations',
+            executor: 'ramping-arrival-rate',
             gracefulStop: '10s',
             exec: 'ListWarehouse',
             env: {
-                APOLLO_API: 'http://127.0.0.1:3000/api/v1/warehouses?next=0&limit=100',
+                APOLLO_API: 'http://127.0.0.1:3000/api/v1/warehouses?next=0&limit=20',
             },
-            tags: {},
-            vus: 100,
-            iterations: 10,
-            maxDuration: '10s',
-            startTime: '0s',
+            preAllocatedVUs: 2,
+            maxVUs: 10,
+            startRate: 2,
+            timeUnit: '1s',
+            stages: [
+                {target: 5, duration: '2s'},   // linearly ramp-up to starting 5 iterations per "timeUnit" over 2s
+                {target: 10, duration: '4s'}, // linearly ramp-up to starting 10 iterations per "timeUnit" over 4s
+                {target: 10, duration: '4s'}, // continue starting 10 iterations per "timeUnit" over 4s
+                {target: 4, duration: '5s'},   // linearly ramp-down to starting 4 iterations per "timeUnit" over 5s
+            ],
         },
         create_warehouse: {
-            executor: 'per-vu-iterations',
+            executor: 'ramping-arrival-rate',
             gracefulStop: '10s',
             exec: 'CreateWarehouse',
             env: {
@@ -47,11 +57,16 @@ export default {
                     "erp_id": 11
                 }`,
             },
-            tags: {},
-            vus: 2,
-            iterations: 10,
-            maxDuration: '10s',
-            startTime: '0s',
+            preAllocatedVUs: 2,
+            maxVUs: 10,
+            startRate: 2,
+            timeUnit: '1s',
+            stages: [
+                {target: 5, duration: '2s'},   // linearly ramp-up to starting 5 iterations per "timeUnit" over 2s
+                {target: 10, duration: '4s'}, // linearly ramp-up to starting 10 iterations per "timeUnit" over 4s
+                {target: 10, duration: '4s'}, // continue starting 10 iterations per "timeUnit" over 4s
+                {target: 4, duration: '5s'},   // linearly ramp-down to starting 4 iterations per "timeUnit" over 5s
+            ],
         },
     },
 };
