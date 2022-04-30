@@ -1,39 +1,37 @@
-import {DoHttpRequest, MethodType} from "./utils.js";
 import {check} from 'k6';
-import {Rate} from 'k6/metrics';
+import {DoHttpRequest, MethodType} from "../utils/utils.js";
+import {WarehouseConfig} from "../configs/warehouse.js";
 
 export {default as options} from "../options/warehouse.js";
 
-export const RateStatusOk = new Rate('rate_status_ok');
-
 export function GetWarehouse() {
     let resp = DoHttpRequest(MethodType.GET, __ENV.API)
-    RateStatusOk.add(resp.status === 200)
+    WarehouseConfig.CustomThreshold.RateStatusOk.add(resp.status === 200)
     check(resp, {
-        'is status 200': (r) => r.status === 200,
+        'GetWarehouse has response status 200': (r) => r.status === 200,
     });
 }
 
 export function ListWarehouse() {
     let resp = DoHttpRequest(MethodType.GET, __ENV.API)
-    RateStatusOk.add(resp.status === 200)
+    WarehouseConfig.CustomThreshold.RateStatusOk.add(resp.status === 200)
     check(resp, {
-        'is status 200': (r) => r.status === 200,
+        'ListWarehouse has response status 200': (r) => r.status === 200,
     });
 }
 
 export function CreateWarehouse() {
     let resp = DoHttpRequest(MethodType.POST, __ENV.API, __ENV.PAYLOAD)
-    RateStatusOk.add(resp.status === 200)
+    WarehouseConfig.CustomThreshold.RateStatusOk.add(resp.status === 200)
     check(resp, {
-        'is status 200': (r) => r.status === 200,
+        'CreateWarehouse has response status 200': (r) => r.status === 200,
     });
 }
 
 export function UpdateWarehouse() {
     let resp = DoHttpRequest(MethodType.PATCH, __ENV.API, __ENV.PAYLOAD)
-    RateStatusOk.add(resp.status === 200)
+    WarehouseConfig.CustomThreshold.RateStatusOk.add(resp.status === 200)
     check(resp, {
-        'is status 200': (r) => r.status === 200,
+        'UpdateWarehouse has response status 200': (r) => r.status === 200,
     });
 }

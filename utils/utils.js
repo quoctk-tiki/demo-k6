@@ -1,5 +1,19 @@
 import http from 'k6/http';
 
+export function ConvertScenarioArrayToJsonArray(scenarioArr) {
+    if (Array.isArray(scenarioArr) === false) {
+        throw "The \"scenarioArr\" must be an Array type!"
+    }
+
+    let result = {};
+    scenarioArr.forEach((data) => {
+        let key = data.exec;
+        result[key] = data.GetScenarioConfig();
+    })
+
+    return result
+}
+
 export const MethodType = {
     POST: Symbol("POST"),
     PUT: Symbol("PUT"),
