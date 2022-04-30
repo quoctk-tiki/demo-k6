@@ -1,5 +1,5 @@
 import {Rate} from 'k6/metrics';
-import {Scenario} from "../scenario/scenario.js";
+import {RampingArrivalRateScenario} from "../scenario/ramping_arrival_rate.js";
 
 const WarehouseAPI = {
     Host: "http://127.0.0.1:3000",
@@ -26,13 +26,13 @@ const WarehouseOption = {
 }
 
 const WarehouseScenario = [
-    new Scenario("GetWarehouse", {
+    new RampingArrivalRateScenario("GetWarehouse", {
         API: `${WarehouseAPI.Host}${WarehouseAPI.GetWarehouse}`,
     }),
-    new Scenario("ListWarehouse", {
+    new RampingArrivalRateScenario("ListWarehouse", {
         API: `${WarehouseAPI.Host}${WarehouseAPI.ListWarehouse}`,
     }),
-    new Scenario("CreateWarehouse", {
+    new RampingArrivalRateScenario("CreateWarehouse", {
         API: `${WarehouseAPI.Host}${WarehouseAPI.CreateWarehouse}`,
         PAYLOAD: `{
             "code": "hn",
@@ -42,7 +42,7 @@ const WarehouseScenario = [
             "erp_id": 10
         }`,
     }),
-    new Scenario("UpdateWarehouse", {
+    new RampingArrivalRateScenario("UpdateWarehouse", {
         API: `${WarehouseAPI.Host}${WarehouseAPI.UpdateWarehouse}`,
         PAYLOAD: `{
             "code": "HCM - Updated",

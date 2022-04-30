@@ -1,5 +1,5 @@
 import {Rate} from 'k6/metrics';
-import {Scenario} from "../scenario/scenario.js";
+import {RampingArrivalRateScenario} from "../scenario/ramping_arrival_rate.js";
 
 const LocationAPI = {
     Host: "http://127.0.0.1:3000",
@@ -26,13 +26,13 @@ const LocationOption = {
 }
 
 const LocationScenario = [
-    new Scenario("GetLocation", {
+    new RampingArrivalRateScenario("GetLocation", {
         API: `${LocationAPI.Host}${LocationAPI.GetLocation}`,
     }),
-    new Scenario("ListLocation", {
+    new RampingArrivalRateScenario("ListLocation", {
         API: `${LocationAPI.Host}${LocationAPI.ListLocation}`,
     }),
-    new Scenario("CreateLocation", {
+    new RampingArrivalRateScenario("CreateLocation", {
         API: `${LocationAPI.Host}${LocationAPI.CreateLocation}`,
         PAYLOAD: `{
             "type": "sale",
@@ -46,7 +46,7 @@ const LocationScenario = [
             "erp_id": 40
         }`,
     }),
-    new Scenario("UpdateLocation", {
+    new RampingArrivalRateScenario("UpdateLocation", {
         API: `${LocationAPI.Host}${LocationAPI.UpdateLocation}`,
         PAYLOAD: `{
             "type": "sale - Updated",
