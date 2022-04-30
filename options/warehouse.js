@@ -1,25 +1,27 @@
-import {ApolloHost, GetDefaultOption, WarehouseAPI} from "./constants.js";
+import {ApolloHost, GetDefaultScenarioConfig, WarehouseAPI} from "./constants.js";
 
 export default {
     discardResponseBodies: false,
     httpDebug: null, // 'full', 'false' or null
     thresholds: {
         http_req_failed: ['rate<0.01'],
-        http_req_duration: ['p(90)<20', 'p(95)<30', 'p(99)<120', 'max<300'],
+        http_req_duration: ['p(90)<=30', 'p(95)<=60', 'p(99)<=150', 'max<=300'],
         'rate_status_ok': ['rate>=0.99'],
     },
+    summaryTimeUnit: 'ms',
+    summaryTrendStats: ['avg', 'min', 'med', 'max', 'p(90)', 'p(95)', 'p(99)', 'p(99.99)', 'count'],
     scenarios: {
-        get_warehouse: GetDefaultOption(
+        get_warehouse: GetDefaultScenarioConfig(
             'GetWarehouse', {
                 API: `${ApolloHost}${WarehouseAPI.GetWarehouse}`,
             },
         ),
-        list_warehouse: GetDefaultOption(
+        list_warehouse: GetDefaultScenarioConfig(
             'ListWarehouse', {
                 API: `${ApolloHost}${WarehouseAPI.ListWarehouse}`,
             },
         ),
-        create_warehouse: GetDefaultOption(
+        create_warehouse: GetDefaultScenarioConfig(
             'CreateWarehouse', {
                 API: `${ApolloHost}${WarehouseAPI.CreateWarehouse}`,
                 PAYLOAD: `{
@@ -31,7 +33,7 @@ export default {
                 }`,
             },
         ),
-        update_warehouse: GetDefaultOption(
+        update_warehouse: GetDefaultScenarioConfig(
             'UpdateWarehouse', {
                 API: `${ApolloHost}${WarehouseAPI.UpdateWarehouse}`,
                 PAYLOAD: `{

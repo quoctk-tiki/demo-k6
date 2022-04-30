@@ -1,7 +1,7 @@
-export function GetDefaultOption(exec, env) {
+export function GetDefaultScenarioConfig(exec, env) {
     return {
         executor: 'ramping-arrival-rate',
-        gracefulStop: '10s',
+        gracefulStop: '20s',
         exec: exec,
         env: env,
         tags: {},

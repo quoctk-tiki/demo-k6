@@ -1,25 +1,27 @@
-import {ApolloHost, GetDefaultOption, LocationAPI} from "./constants.js";
+import {ApolloHost, GetDefaultScenarioConfig, LocationAPI} from "./constants.js";
 
 export default {
     discardResponseBodies: false,
     httpDebug: null, // 'full', 'false' or null
     thresholds: {
         http_req_failed: ['rate<0.01'],
-        http_req_duration: ['p(90)<20', 'p(95)<30', 'p(99)<120', 'max<300'],
+        http_req_duration: ['p(90)<=30', 'p(95)<=60', 'p(99)<=150', 'max<=300'],
         'rate_status_ok': ['rate>=0.99'],
     },
+    summaryTimeUnit: 'ms',
+    summaryTrendStats: ['avg', 'min', 'med', 'max', 'p(90)', 'p(95)', 'p(99)', 'p(99.99)', 'count'],
     scenarios: {
-        get_location: GetDefaultOption(
+        get_location: GetDefaultScenarioConfig(
             'GetLocation', {
                 API: `${ApolloHost}${LocationAPI.GetLocation}`,
             },
         ),
-        list_location: GetDefaultOption(
+        list_location: GetDefaultScenarioConfig(
             'ListLocation', {
                 API: `${ApolloHost}${LocationAPI.ListLocation}`,
             },
         ),
-        create_location: GetDefaultOption(
+        create_location: GetDefaultScenarioConfig(
             'CreateLocation', {
                 API: `${ApolloHost}${LocationAPI.CreateLocation}`,
                 PAYLOAD: `{
@@ -35,7 +37,7 @@ export default {
                 }`,
             },
         ),
-        update_location: GetDefaultOption(
+        update_location: GetDefaultScenarioConfig(
             'UpdateLocation', {
                 API: `${ApolloHost}${LocationAPI.UpdateLocation}`,
                 PAYLOAD: `{
