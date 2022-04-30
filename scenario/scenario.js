@@ -7,7 +7,7 @@ export class Scenario {
     }
 
     ValidateExecParam(exec) {
-        if (exec == null) {
+        if (exec == null || exec.length === 0) {
             throw "The \"exec\" is your function name and it is required!"
         }
     }
@@ -24,7 +24,7 @@ export class Scenario {
             throw "The \"env\" must be a JSON type!";
         }
 
-        if (env["API"] === "") {
+        if (env.hasOwnProperty("API") === false || env.API.length === 0) {
             throw "The \"env\" must have the \"API\" endpoint field!";
         }
     }
