@@ -9,6 +9,7 @@ export function GetLocation() {
     LocationConfig.CustomThreshold.RateStatusOk.add(resp.status === 200)
     check(resp, {
         'GetLocation has response status 200': (r) => r.status === 200,
+        'GetLocation has body': (r) => r.body && r.body.length > 0,
     });
 }
 
@@ -17,6 +18,7 @@ export function ListLocation() {
     LocationConfig.CustomThreshold.RateStatusOk.add(resp.status === 200)
     check(resp, {
         'ListLocation has response status 200': (r) => r.status === 200,
+        'ListLocation has body': (r) => r.body && r.body.length > 0,
     });
 }
 

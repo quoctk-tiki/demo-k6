@@ -9,6 +9,7 @@ export function GetWarehouse() {
     WarehouseConfig.CustomThreshold.RateStatusOk.add(resp.status === 200)
     check(resp, {
         'GetWarehouse has response status 200': (r) => r.status === 200,
+        'GetWarehouse has body': (r) => r.body && r.body.length > 0,
     });
 }
 
@@ -17,6 +18,7 @@ export function ListWarehouse() {
     WarehouseConfig.CustomThreshold.RateStatusOk.add(resp.status === 200)
     check(resp, {
         'ListWarehouse has response status 200': (r) => r.status === 200,
+        'ListWarehouse has body': (r) => r.body && r.body.length > 0,
     });
 }
 
