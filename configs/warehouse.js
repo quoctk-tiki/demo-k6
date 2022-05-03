@@ -14,7 +14,7 @@ const WarehouseCustomThreshold = {
 }
 
 const WarehouseOption = {
-    DiscardResponseBodies: true,
+    DiscardResponseBodies: false,
     HttpDebug: null, // 'full', 'false' or null
     Thresholds: {
         http_req_failed: ['rate<0.01'],
