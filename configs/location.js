@@ -1,10 +1,10 @@
 import {Rate} from 'k6/metrics';
 import {RampingArrivalRateScenario} from "../scenario/ramping_arrival_rate.js";
+import {ServiceHost} from "./const.js";
 
 const LocationAPI = {
-    Host: "http://127.0.0.1:3000",
     GetLocation: "/api/v1/locations/1",
-    ListLocation: "/api/v1/locations?next=0&limit=100",
+    ListLocation: "/api/v1/locations?next=0&limit=10",
     CreateLocation: "/api/v1/locations",
     UpdateLocation: "/api/v1/locations/1",
 }
@@ -14,7 +14,7 @@ const LocationCustomThreshold = {
 }
 
 const LocationOption = {
-    DiscardResponseBodies: false,
+    DiscardResponseBodies: true,
     HttpDebug: null, // 'full', 'false' or null
     Thresholds: {
         http_req_failed: ['rate<0.01'],
@@ -27,13 +27,13 @@ const LocationOption = {
 
 const LocationScenario = [
     new RampingArrivalRateScenario("GetLocation", {
-        API: `${LocationAPI.Host}${LocationAPI.GetLocation}`,
+        API: `${ServiceHost}${LocationAPI.GetLocation}`,
     }),
     new RampingArrivalRateScenario("ListLocation", {
-        API: `${LocationAPI.Host}${LocationAPI.ListLocation}`,
+        API: `${ServiceHost}${LocationAPI.ListLocation}`,
     }),
     new RampingArrivalRateScenario("CreateLocation", {
-        API: `${LocationAPI.Host}${LocationAPI.CreateLocation}`,
+        API: `${ServiceHost}${LocationAPI.CreateLocation}`,
         PAYLOAD: `{
             "type": "sale",
             "name": "hn-Kho Hàng Bán",
@@ -47,7 +47,7 @@ const LocationScenario = [
         }`,
     }),
     new RampingArrivalRateScenario("UpdateLocation", {
-        API: `${LocationAPI.Host}${LocationAPI.UpdateLocation}`,
+        API: `${ServiceHost}${LocationAPI.UpdateLocation}`,
         PAYLOAD: `{
             "type": "sale - Updated",
             "name": "hn-Kho Hàng Bán - Updated",

@@ -1,10 +1,10 @@
 import {Rate} from 'k6/metrics';
 import {RampingArrivalRateScenario} from "../scenario/ramping_arrival_rate.js";
+import {ServiceHost} from "./const.js";
 
 const WarehouseAPI = {
-    Host: "http://127.0.0.1:3000",
     GetWarehouse: "/api/v1/warehouses/1",
-    ListWarehouse: "/api/v1/warehouses?next=0&limit=100",
+    ListWarehouse: "/api/v1/warehouses?next=0&limit=10",
     CreateWarehouse: "/api/v1/warehouses",
     UpdateWarehouse: "/api/v1/warehouses/1",
 }
@@ -14,7 +14,7 @@ const WarehouseCustomThreshold = {
 }
 
 const WarehouseOption = {
-    DiscardResponseBodies: false,
+    DiscardResponseBodies: true,
     HttpDebug: null, // 'full', 'false' or null
     Thresholds: {
         http_req_failed: ['rate<0.01'],
@@ -27,13 +27,13 @@ const WarehouseOption = {
 
 const WarehouseScenario = [
     new RampingArrivalRateScenario("GetWarehouse", {
-        API: `${WarehouseAPI.Host}${WarehouseAPI.GetWarehouse}`,
+        API: `${ServiceHost}${WarehouseAPI.GetWarehouse}`,
     }),
     new RampingArrivalRateScenario("ListWarehouse", {
-        API: `${WarehouseAPI.Host}${WarehouseAPI.ListWarehouse}`,
+        API: `${ServiceHost}${WarehouseAPI.ListWarehouse}`,
     }),
     new RampingArrivalRateScenario("CreateWarehouse", {
-        API: `${WarehouseAPI.Host}${WarehouseAPI.CreateWarehouse}`,
+        API: `${ServiceHost}${WarehouseAPI.CreateWarehouse}`,
         PAYLOAD: `{
             "code": "hn",
             "name": "WH-HN",
@@ -43,7 +43,7 @@ const WarehouseScenario = [
         }`,
     }),
     new RampingArrivalRateScenario("UpdateWarehouse", {
-        API: `${WarehouseAPI.Host}${WarehouseAPI.UpdateWarehouse}`,
+        API: `${ServiceHost}${WarehouseAPI.UpdateWarehouse}`,
         PAYLOAD: `{
             "code": "HCM - Updated",
             "name": "WH-HCM-Updated",

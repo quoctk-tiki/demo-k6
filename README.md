@@ -19,7 +19,9 @@ Use cases:
 
 ### 2. Useful documents
 
-- K6 documents in overall: https://k6.io/docs
+- K6 documents in overall: [k6.io](https://k6.io/docs)
+- Good advice to run large tests in
+  K6: [k6.io/running-large-tests](https://k6.io/docs/testing-guides/running-large-tests/)
 
 ### 3. Some notes
 
@@ -71,7 +73,7 @@ deciding on what latency and response time to aim for:
 
 ### 5. Results
 
-![Media_1](./media/1.png)
-![Media_2](./media/2.png)
+![Asset 1](assets/1.png)
+![Asset 2](assets/2.png)
 
 
