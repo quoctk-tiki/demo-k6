@@ -1,6 +1,6 @@
 import {Rate} from 'k6/metrics';
 import {RampingArrivalRateScenario} from "../scenario/ramping_arrival_rate.js";
-import {ServiceHost} from "./const.js";
+import {ServiceHost, ServiceDefaultHeaders} from "./const.js";
 
 const WarehouseAPI = {
     GetWarehouse: "/api/v1/warehouses/1",
@@ -28,12 +28,15 @@ const WarehouseOption = {
 const WarehouseScenario = [
     new RampingArrivalRateScenario("GetWarehouse", {
         API: `${ServiceHost}${WarehouseAPI.GetWarehouse}`,
+        HEADERS: JSON.stringify(ServiceDefaultHeaders),
     }),
     new RampingArrivalRateScenario("ListWarehouse", {
         API: `${ServiceHost}${WarehouseAPI.ListWarehouse}`,
+        HEADERS: JSON.stringify(ServiceDefaultHeaders),
     }),
     new RampingArrivalRateScenario("CreateWarehouse", {
         API: `${ServiceHost}${WarehouseAPI.CreateWarehouse}`,
+        HEADERS: JSON.stringify(ServiceDefaultHeaders),
         PAYLOAD: `{
             "code": "hn",
             "name": "WH-HN",
@@ -44,6 +47,7 @@ const WarehouseScenario = [
     }),
     new RampingArrivalRateScenario("UpdateWarehouse", {
         API: `${ServiceHost}${WarehouseAPI.UpdateWarehouse}`,
+        HEADERS: JSON.stringify(ServiceDefaultHeaders),
         PAYLOAD: `{
             "code": "HCM - Updated",
             "name": "WH-HCM-Updated",

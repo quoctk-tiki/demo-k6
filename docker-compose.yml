@@ -1,0 +1,47 @@
+version: '3'
+
+volumes:
+  netdataconfig:
+  netdatalib:
+  netdatacache:
+
+services:
+  netdata:
+    image: netdata/netdata:latest
+    container_name: netdata
+    hostname: ApolloService
+    ports:
+      - "19999:19999"
+      - "8125:8125/udp"
+    restart: unless-stopped
+    cap_add:
+      - SYS_PTRACE
+    security_opt:
+      - apparmor:unconfined
+    volumes:
+      - netdataconfig:/etc/netdata
+      - netdatalib:/var/lib/netdata
+      - netdatacache:/var/cache/netdata
+      - /etc/passwd:/host/etc/passwd:ro
+      - /etc/group:/host/etc/group:ro
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /etc/os-release:/host/etc/os-release:ro
+      - ./netdata_docker_config/k6.conf:/etc/netdata/statsd.d/k6.conf
+      - ./netdata_docker_config/netdata.conf:/etc/netdata/netdata.conf
+    environment:
+      - NETDATA_CLAIM_TOKEN=yDW5g6fveLu1VMaSh8eRPxl4-8lgWnjTy2DrWJvtyn1zK6rFD4Vkphjr5n0nuvsBNds2VEMQSnhkjHPsFxBCymJBNKa-mMbuz48OL6JXCXAGE-U4MpCtfYYyVqY2RvWR_JbprnU
+      - NETDATA_CLAIM_URL=https://app.netdata.cloud
+      - NETDATA_CLAIM_ROOMS=30b23ea1-7a00-4b24-a4a0-e562e45389e9
+
+  k6:
+    image: loadimpact/k6:latest
+    ports:
+      - "6565:6565"
+    environment:
+      - K6_STATSD_ADDR=netdata:8125
+      - K6_STATSD_PUSH_INTERVAL=1s
+      - K6_STATSD_BUFFER_SIZE=50
+      - K6_OUT=statsd
+    volumes:
+      - ./:/ims-apollo

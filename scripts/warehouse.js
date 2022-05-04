@@ -12,7 +12,7 @@ import {
 export {default as options} from "../options/warehouse.js";
 
 export function GetWarehouse() {
-    let resp = DoHttpRequest(MethodType.GET, __ENV.API)
+    let resp = DoHttpRequest(MethodType.GET, __ENV.API, __ENV.HEADERS, null)
     WarehouseConfig.CustomThreshold.RateStatusOk.add(resp.status === 200)
 
     let functionName = GetFunctionName();
@@ -25,7 +25,7 @@ export function GetWarehouse() {
 }
 
 export function ListWarehouse() {
-    let resp = DoHttpRequest(MethodType.GET, __ENV.API)
+    let resp = DoHttpRequest(MethodType.GET, __ENV.API, __ENV.HEADERS, null)
     WarehouseConfig.CustomThreshold.RateStatusOk.add(resp.status === 200)
 
     let functionName = GetFunctionName();
@@ -38,7 +38,7 @@ export function ListWarehouse() {
 }
 
 export function CreateWarehouse() {
-    let resp = DoHttpRequest(MethodType.POST, __ENV.API, __ENV.PAYLOAD)
+    let resp = DoHttpRequest(MethodType.POST, __ENV.API, __ENV.HEADERS, __ENV.PAYLOAD)
     WarehouseConfig.CustomThreshold.RateStatusOk.add(resp.status === 200)
 
     let functionName = GetFunctionName();
@@ -52,7 +52,7 @@ export function CreateWarehouse() {
 }
 
 export function UpdateWarehouse() {
-    let resp = DoHttpRequest(MethodType.PATCH, __ENV.API, __ENV.PAYLOAD)
+    let resp = DoHttpRequest(MethodType.PATCH, __ENV.API, __ENV.HEADERS, __ENV.PAYLOAD)
     WarehouseConfig.CustomThreshold.RateStatusOk.add(resp.status === 200)
 
     let functionName = GetFunctionName();

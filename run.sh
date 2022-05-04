@@ -1,3 +1,8 @@
 #!/usr/bin/env zsh
-k6 run --address "localhost:6500" --out statsd ./scripts/warehouse.js &
-k6 run --address "localhost:6501" --out statsd ./scripts/location.js
+
+# 1. Please change "example" to "scripts" folder name.
+# 2. At "configs > const.js", please use the official "ServiceHost" and declare necessary header params.
+
+for f in example/*; do
+  docker-compose run --rm k6 run "/ims-apollo/$f"
+done

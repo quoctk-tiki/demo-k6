@@ -22,11 +22,12 @@ export const MethodType = {
     DELETE: Symbol("DELETE"),
 }
 
-export function DoHttpRequest(method, url, payload, headerParams) {
+export function DoHttpRequest(method, url, headerParams, payload) {
     let params = null
     if (headerParams != null) {
+        let jsonHeader = JSON.parse(headerParams);
         params = {
-            headers: headerParams
+            headers: jsonHeader,
         }
     }
 

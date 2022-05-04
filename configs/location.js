@@ -1,6 +1,6 @@
 import {Rate} from 'k6/metrics';
 import {RampingArrivalRateScenario} from "../scenario/ramping_arrival_rate.js";
-import {ServiceHost} from "./const.js";
+import {ServiceHost, ServiceDefaultHeaders} from "./const.js";
 
 const LocationAPI = {
     GetLocation: "/api/v1/locations/1",
@@ -28,12 +28,15 @@ const LocationOption = {
 const LocationScenario = [
     new RampingArrivalRateScenario("GetLocation", {
         API: `${ServiceHost}${LocationAPI.GetLocation}`,
+        HEADERS: JSON.stringify(ServiceDefaultHeaders),
     }),
     new RampingArrivalRateScenario("ListLocation", {
         API: `${ServiceHost}${LocationAPI.ListLocation}`,
+        HEADERS: JSON.stringify(ServiceDefaultHeaders),
     }),
     new RampingArrivalRateScenario("CreateLocation", {
         API: `${ServiceHost}${LocationAPI.CreateLocation}`,
+        HEADERS: JSON.stringify(ServiceDefaultHeaders),
         PAYLOAD: `{
             "type": "sale",
             "name": "hn-Kho Hàng Bán",
@@ -48,6 +51,7 @@ const LocationScenario = [
     }),
     new RampingArrivalRateScenario("UpdateLocation", {
         API: `${ServiceHost}${LocationAPI.UpdateLocation}`,
+        HEADERS: JSON.stringify(ServiceDefaultHeaders),
         PAYLOAD: `{
             "type": "sale - Updated",
             "name": "hn-Kho Hàng Bán - Updated",

@@ -12,7 +12,7 @@ import {
 export {default as options} from "../options/location.js";
 
 export function GetLocation() {
-    let resp = DoHttpRequest(MethodType.GET, __ENV.API)
+    let resp = DoHttpRequest(MethodType.GET, __ENV.API, __ENV.HEADERS, null)
     LocationConfig.CustomThreshold.RateStatusOk.add(resp.status === 200)
 
     let functionName = GetFunctionName();
@@ -25,7 +25,7 @@ export function GetLocation() {
 }
 
 export function ListLocation() {
-    let resp = DoHttpRequest(MethodType.GET, __ENV.API)
+    let resp = DoHttpRequest(MethodType.GET, __ENV.API, __ENV.HEADERS, null)
     LocationConfig.CustomThreshold.RateStatusOk.add(resp.status === 200)
 
     let functionName = GetFunctionName();
@@ -38,7 +38,7 @@ export function ListLocation() {
 }
 
 export function CreateLocation() {
-    let resp = DoHttpRequest(MethodType.POST, __ENV.API, __ENV.PAYLOAD)
+    let resp = DoHttpRequest(MethodType.POST, __ENV.API, __ENV.HEADERS, __ENV.PAYLOAD)
     LocationConfig.CustomThreshold.RateStatusOk.add(resp.status === 200)
 
     let functionName = GetFunctionName();
@@ -52,7 +52,7 @@ export function CreateLocation() {
 }
 
 export function UpdateLocation() {
-    let resp = DoHttpRequest(MethodType.PATCH, __ENV.API, __ENV.PAYLOAD)
+    let resp = DoHttpRequest(MethodType.PATCH, __ENV.API, __ENV.HEADERS, __ENV.PAYLOAD)
     LocationConfig.CustomThreshold.RateStatusOk.add(resp.status === 200)
 
     let functionName = GetFunctionName();
