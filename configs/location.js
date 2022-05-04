@@ -42,8 +42,8 @@ const LocationScenario = [
             "contact_info": {
                 "hello": "Here is load test!"
             },
-            "warehouse_id": 10,
-            "erp_id": 40
+            "warehouse_id": 1,
+            "erp_id": 10
         }`,
     }),
     new RampingArrivalRateScenario("UpdateLocation", {
@@ -53,8 +53,8 @@ const LocationScenario = [
             "name": "hn-Kho Hàng Bán - Updated",
             "complete_name": "hn-Kho Hàng Bán - Updated",
             "usage": "internal",
-            "warehouse_id": 20,
-            "erp_id": 50
+            "warehouse_id": 1,
+            "erp_id": 20
         }`,
     }),
 ];
