@@ -20,6 +20,6 @@ export default function () {
     const res = http.get('http://test.k6.io');
     check(res, {
         'status is 200': (r) => r.status === 200,
-        'response body': (r) => r.body.indexOf('Feel free to browse') !== -1,
+        'response body existed': (r) => r.body && r.body.length > 0,
     });
 }
